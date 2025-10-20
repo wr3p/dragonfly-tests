@@ -33,7 +33,7 @@ func main() {
 		worldTx := joined.Tx()
 		for other := range srv.Players(worldTx) {
 			if other.UUID() != joined.UUID() {
-				other.Message(fmt.Sprintf("%s joined the world!", joined.Name())) // not sure of this
+				other.Messagef("%s joined the world!", joined.Name()) // not sure of this
 			}
 			joined.Message("Welcome!")
 		}
