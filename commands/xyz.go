@@ -10,7 +10,7 @@ type XYZ struct{}
 
 var opened = map[string]bool{}
 
-func (t XYZ) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {
+func (cmd XYZ) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {
 	p, ok := source.(*player.Player)
 	if !ok {
 		output.Print("You can only use this command in-game!")
@@ -22,9 +22,9 @@ func (t XYZ) Run(source cmd.Source, output *cmd.Output, tx *world.Tx) {
 
 	if opened[id] {
 		p.ShowCoordinates()
-		output.Print("Coordinates are displayed.")
+		output.Print("§aCoordinates are displayed.")
 	} else {
 		p.HideCoordinates()
-		output.Print("Coordinates are hidden.")
+		output.Print("§cCoordinates are hidden.")
 	}
 }

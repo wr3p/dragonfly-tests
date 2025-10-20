@@ -24,17 +24,29 @@ func main() {
 	srv := conf.New()
 	// commands etc
 	registerCmds()
+
 	// others
 	srv.CloseOnProgramEnd()
 
 	srv.Listen()
-	for p := range srv.Accept() {
-		_ = p
+	for joined := range srv.Accept() {
+		worldTx := joined.Tx()
+		for other := range srv.Players(worldTx) {
+			if other.UUID() != joined.UUID() {
+				other.Message(fmt.Sprintf("%s joined the world!", joined.Name())) // not sure of this
+			}
+			joined.Message("Welcome!")
+		}
 	}
+
+	/*for p := range srv.Accept() {
+		_ = p
+	}*/
 }
 
 func registerCmds() {
-	cmd.Register(cmd.New("xyz", "Shows/hides coordinates", []string{"coordinates", "koordinat"}, commands.XYZ{}))
+	cmd.Register(cmd.New("xyz", "Shows/hides coordinates", []string{"coordinates"}, commands.XYZ{}))
+	cmd.Register(cmd.New("transfer", "Transfer yourself to another server", []string{"go"}, commands.TRANSFER{}))
 }
 
 // readConfig reads the configuration from the config.toml file, or creates the
