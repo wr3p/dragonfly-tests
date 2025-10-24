@@ -47,6 +47,7 @@ func main() {
 func registerCmds() {
 	cmd.Register(cmd.New("xyz", "Shows/hides coordinates", []string{"coordinates"}, commands.XYZ{}))
 	cmd.Register(cmd.New("transfer", "Transfer yourself to another server", []string{"go"}, commands.TRANSFER{}))
+	cmd.Register(cmd.New("gamemode", "Changes your game mode", []string{"gm"}, commands.GAMEMODE{}))
 }
 
 // readConfig reads the configuration from the config.toml file, or creates the
